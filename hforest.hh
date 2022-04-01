@@ -25,7 +25,7 @@ class HForest {
   void add_tree(tree_t);
 ​
   // Return the tree with the lowest priority (and remove it from forest)
-  tree_t pop_top();
+  tree_t pop_tree();
 ​
  private:
   std::vector<tree_t> trees_;
