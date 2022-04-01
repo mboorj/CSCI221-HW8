@@ -4,7 +4,7 @@
 BitInput::BitInput(std::istream& is){ // borrowing structure from Tour of C++
   bits_vector_t bits_;
   for (int i; is>>bits_;){
-    bits_.push_back(input_bit(i)) // or if i is bool, push_back(i)
+    bits_.push_back(input_bit(i))
   }
 }
 
@@ -13,6 +13,7 @@ BitInput::BitInput(std::istream& is){ // borrowing structure from Tour of C++
 bool BitInput::input_bit(){
   if (this.eof()){
     std::cerr << "Past end of file." << '\n';
+    return; // something???
   }
   if (this == 0){
     return false;
@@ -21,16 +22,37 @@ bool BitInput::input_bit(){
   }
 }
 
-// Construct with an input stream
-BitOutput::BitOutput(std::ostream& os){ // why ostream? if building from input wouldn't we want istream?
-
+// Construct with an output stream
+BitOutput::BitOutput(std::ostream& os){
+  std::ostream& os_ = os;
 }
 
 // Output a single bit (buffered)
 void BitOutput::output_bit(bool bit){
   if (bit){
-    std::cout << '1'; // should it be os_ << instead?
+    os_ << 1; // should it be os_ << instead?
   } else {
-    std::cout << '0';
+    os_ << 0;
   }
+  if (bit) {
+    poss_out_.push_back(1);
+  } else {
+    poss_out_.push_back(0);
+  }
+  if (poss_out_.size() == 8){
+    uint_8t num = vec8_to_bin(poss_out_);
+    poss_out_.erase(poss_out_.begin(),poss_out_.begin()+7);
+    os_ << num;
+  }
+  //if vector of things is smaller than 8, just append
+  //if vector of things has size 8, turn it into an int, output, empty the vector
+}
+
+uint_8t vec8_to_bin(std::vector v){
+  uint_8t i = 128*v[0]+64*v[1]+32*v[2]+16*v[3]+8*v[4]+4*v[5]+2*v[6]+v[7];
+  return i;
+}
+
+BitOutput::~BitOutput(){
+
 }

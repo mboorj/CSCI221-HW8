@@ -8,6 +8,7 @@
 #include <climits>
 #include <vector>
 #include <unordered_map>
+#include <list>
 
 #include "htree.hh"
 #include "hforest.hh"
@@ -41,7 +42,7 @@ class Huffman {
   // Finally, updates the frequency table with this additional symbol.
   int decode(bool bit); // if negative, tree = tree.get_child(bit)
  private:
-   void create_huff()
+   void create_huff();
    void update_freq(char index);
    table_t freq_table_;
    tree_t huff_tree_;

@@ -1,15 +1,15 @@
 /*
  * test_hforest: A simple unit test for the HForest data structure.
  */
-​
+
 #include "hforest.hh"
 #include <iostream>
 #include <cassert>
-​
+
 HForest create_test_forest()
 {
   HForest forest;
-​
+
   forest.add_tree(HTree::tree_ptr_t(new HTree(1, 10)));
   forest.add_tree(HTree::tree_ptr_t(new HTree(2, 20)));
   forest.add_tree(HTree::tree_ptr_t(new HTree(3, 30)));
@@ -17,10 +17,10 @@ HForest create_test_forest()
   forest.add_tree(HTree::tree_ptr_t(new HTree(5, 5)));
   forest.add_tree(HTree::tree_ptr_t(new HTree(1, 6)));
   forest.add_tree(HTree::tree_ptr_t(new HTree(1, 40)));
-​
+
   return forest;
 }
-​
+
 void test_forest()
 {
   auto forest = create_test_forest();
@@ -35,9 +35,10 @@ void test_forest()
   assert(forest.size() == 0);
   assert(forest.pop_top() == nullptr);
 }
-​
+
 int main()
 {
   test_forest();
   return 0;
 }
+

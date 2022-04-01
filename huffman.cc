@@ -2,10 +2,10 @@
 
 Huffman::Huffman(){
   table_t freq_table_;
-  for (char i = 0; i <= ALPHABET_SIZE-1; i++){
-    freq_table_.insert(0); // index == key (129-> EOF), value == frequency
+  for (char i = 1; i <= ALPHABET_SIZE-1; i++){
+    freq_table_.push_back(0); // index == key (ALPHABET_SIZE-> EOF), value == frequency
   }
-  freq_table_.insert(1); // EOF
+  freq_table_.push_back(1); // EOF
 }
 
 void Huffman::update_freq(char index){
@@ -15,7 +15,7 @@ void Huffman::update_freq(char index){
 Huffman::bits_t Huffman::encode(int symbol){
   auto dir_bits = huff_tree_->path_to(symbol);
   bits_t bool_bits;
-  for (i: dir_bits){
+  for (HTree::Direction i : dir_bits){
     if (i == HTree::Direction(0)){
       bool_bits.push_back(false);
     } else {
@@ -48,10 +48,10 @@ void Huffman::create_huff(){
   }
 
   while (temp_forest.size() > 1){ // until everything is in one tree...
-    auto tree1 = temp_forest->pop_tree(); // remove and save lowest, second lowest
-    auto tree2 = temp_forest->pop_tree();
+    auto tree1 = temp_forest->pop_top(); // remove and save lowest, second lowest
+    auto tree2 = temp_forest->pop_top();
     auto new_tree = std::make_shared<HTree>(-1, tree1->get_value()+tree2->get_value(), tree1, tree2); // merge as L,R in tree
     temp_forest->add_tree(new_tree); // put new tree into forest, forest.size() -= 1
   }
-  huff_tree_ = temp_forest->pop_tree(); // get tree out of the forest, that's your huffman tree
+  huff_tree_ = temp_forest->pop_top(); // get tree out of the forest, that's your huffman tree
 }
