@@ -1,11 +1,15 @@
 #include "huffman.hh"
 
 Huffman::Huffman(){
-  table_t freq_table_;
-  for (char i = 1; i++;){
-    freq_table_.push_back(0); // index == key (ALPHABET_SIZE-> EOF), value == frequency
+  //table_t freq_table_;
+  int i = 0;
+  while (i < ALPHABET_SIZE-1){
+    this->freq_table_.push_back(0); // index == key (ALPHABET_SIZE-> EOF), value == frequency
+    i++;
   }
-  freq_table_.push_back(1); // EOF
+  this->freq_table_.push_back(1); // EOF
+  //tree_ptr_t huff_tree_;
+  create_huff();
 }
 
 
@@ -45,8 +49,10 @@ int Huffman::decode(bool bit){
 
 void Huffman::create_huff(){
   auto temp_forest = std::make_shared<HForest>(); // put 1 tree per character into a forest
-  for (int i: freq_table_){
+  int i = 0;
+  while (i < ALPHABET_SIZE){
     temp_forest->add_tree(std::make_shared<HTree>(i, freq_table_[i]));
+    i++;
   }
 
   while (temp_forest->size() > 1){ // until everything is in one tree...
