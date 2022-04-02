@@ -22,11 +22,11 @@ class Huffman {
   using bits_t = std::vector<bool>;
   using key_t = int;
   using value_t = int;
-  using table_t = std::list<int>;
-  using tree_t = std::shared_ptr<HTree>;
+  using table_t = std::vector<int>;
+  using tree_ptr_t = HTree::tree_ptr_t;
 
   Huffman();
-  ~Huffman();
+  ~Huffman() = default;
   Huffman(const Huffman&) = delete;
   Huffman(Huffman&&) = delete;
   Huffman& operator=(const Huffman&) = delete;
@@ -45,5 +45,5 @@ class Huffman {
    void create_huff();
    void update_freq(char index);
    table_t freq_table_;
-   tree_t huff_tree_;
+   tree_ptr_t huff_tree_;
 };

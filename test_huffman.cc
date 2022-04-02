@@ -74,4 +74,3 @@ int main()
   test_decode();
   return 0;
 }
-
