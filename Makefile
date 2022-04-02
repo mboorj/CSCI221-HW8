@@ -8,10 +8,10 @@ all:  test_bitio test_huffman encoder decoder
 test_bitio: bitio.o test_bitio.o
 	$(CXX) $(LDFLAGS) -o $@ $^
 
-test_tree: test_tree.o tree.o
+test_htree: test_htree.o htree.o
 	$(CXX) $(LDFLAGS) -o $@ $^
 
-test_huffman: test_huffman.o huffman.o hforest.o
+test_huffman: test_huffman.o huffman.o hforest.o htree.o
 	$(CXX) $(LDFLAGS) -o $@ $^
 
 test_hforest: test_hforest.o hforest.o
