@@ -27,9 +27,14 @@ BitOutput::BitOutput(std::ostream& os){
   std::ostream& os_ = os;
 }
 
-
 ~Bitoutput(){
-
+  int size_vector = poss_out_.size();
+  while (poss_out_.size() != 8){
+    poss_out_.push_back(0);
+  }
+    uint_8t num = vec8_to_bin(poss_out_);
+    poss_out_.erase(poss_out_.begin(),poss_out_.begin()+7);
+    os_ << num;
 }
 
 // Output a single bit (buffered)
