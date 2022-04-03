@@ -44,7 +44,7 @@ int decode_symbol(Huffman& huff, const Huffman::bits_t& bits)
   for (auto b : bits) {
     symbol = huff.decode(b);
   }
-  assert(symbol >= 0);
+  assert(symbol > 0);
   return symbol;
 }
 
@@ -56,7 +56,8 @@ void test_decode()
   Huffman encoder, decoder;
 
   auto bits = encoder.encode('a');
-  assert(decode_symbol(decoder, bits) == 'a');
+  auto new_sym = decode_symbol(decoder,bits);
+  assert(new_sym == 'a');
   bits = encoder.encode('a');
   assert(decode_symbol(decoder, bits) == 'a');
   bits = encoder.encode('b');

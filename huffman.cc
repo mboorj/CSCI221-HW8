@@ -18,7 +18,7 @@ void Huffman::update_freq(char index){
 }
 
 Huffman::bits_t Huffman::encode(int symbol){
-  auto dir_bits = huff_tree_->path_to(symbol);
+  auto dir_bits = huff_tree_->path_to(symbol); // is path_to not terminating??
   bits_t bool_bits;
   for (HTree::Direction i : *dir_bits){
     if (i == HTree::Direction(0)){
@@ -33,18 +33,17 @@ Huffman::bits_t Huffman::encode(int symbol){
 }
 
 int Huffman::decode(bool bit){
-  HTree::tree_ptr_t poss;
   if (bit) {
-    poss = huff_tree_->get_child(HTree::Direction(1)); // go right if true
+    huff_tree_ = huff_tree_->get_child(HTree::Direction(1)); // go right if true
   } else {
-    poss = huff_tree_->get_child(HTree::Direction(0)); // go left if false
+    huff_tree_ = huff_tree_->get_child(HTree::Direction(0)); // go left if false
   }
-  if (poss->get_value() > 0) { // reached an actual symbol
-    return poss->get_value();
-  } else {
-    huff_tree_ = poss; // throw away the part of tree we won't use, bookmark poss for next check
-    return poss->get_value(); // will be -1
+  const int curr_key = huff_tree_->get_key();
+  if (curr_key >= 0){ // not -1 means is a valid symbol
+    freq_table_[curr_key]++; // update freq for symbol that we found
+    create_huff(); // rebuild huff_tree_ with new table
   }
+    return curr_key; // will be -1 if symbol not found
 }
 
 void Huffman::create_huff(){
