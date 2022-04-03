@@ -33,7 +33,6 @@ BitOutput::BitOutput(std::ostream& os){
     poss_out_.push_back(0);
   }
     uint_8t num = vec8_to_bin(poss_out_);
-    poss_out_.erase(poss_out_.begin(),poss_out_.begin()+7);
     os_ << num;
 }
 
