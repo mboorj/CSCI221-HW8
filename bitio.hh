@@ -30,10 +30,6 @@ class BitInput {
 
 };
 
-~Bitoutput(){
-
-}
-
 // BitOutput: Write a single bit at a time to an output stream
 // Make sure all bits are written out by the time the destructor is done.
 class BitOutput {

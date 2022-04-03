@@ -27,6 +27,11 @@ BitOutput::BitOutput(std::ostream& os){
   std::ostream& os_ = os;
 }
 
+
+~Bitoutput(){
+
+}
+
 // Output a single bit (buffered)
 void BitOutput::output_bit(bool bit){
   if (bit){
