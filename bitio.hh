@@ -25,7 +25,7 @@ class BitInput {
   bool input_bit();
 
  private:
-  std::istream& is_;
+  std::istream& is_; 
   char poss_in_;
   int count_;
 

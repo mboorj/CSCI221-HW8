@@ -36,10 +36,10 @@ test_4_bits()
     bito.output_bit(1);
     bito.output_bit(0);
     bito.output_bit(1);
-  }
+  } // is this going out of scope?
 
   BitInput biti(bits);
-  assert(biti.input_bit() == false);
+  assert(biti.input_bit() == false); // fails this assertion, why??
   assert(biti.input_bit() == true);
   assert(biti.input_bit() == false);
   assert(biti.input_bit() == true);

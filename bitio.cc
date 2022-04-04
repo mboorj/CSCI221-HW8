@@ -2,8 +2,8 @@
 
 // Construct with an input stream
 BitInput::BitInput(std::istream& is)
-  :is_(is), poss_in_(0), count_(8) // magic initalizer format
-  {}
+  :is_(is), poss_in_(0), count_(8)
+  {} // need to get is from address to actual stream, then we can default copy constructor
 
 // Read a single bit (or trailing zero)
 // Allowed to crash or throw an exception if called past end-of-file.
@@ -26,8 +26,8 @@ bool BitInput::input_bit(){
 
 
 // Construct with an output stream
-BitOutput::BitOutput(std::ostream& os) // start with LEAST SIGNIFICANT, totally allowed as long as it does the same thing as the input
-  :os_(os), poss_out_(0), count_(8) // magic format
+BitOutput::BitOutput(std::ostream& os) // start with LEAST SIGNIFICANT
+  :os_(os), poss_out_(0), count_(0)
   {}
 
 BitOutput::~BitOutput(){
