@@ -1,11 +1,12 @@
 #include "bitio.hh"
+#include <vector>
 
 // Construct with an input stream
 BitInput::BitInput(std::istream& is){ // borrowing structure from Tour of C++
   bits_vector_t bits_;
   for (auto i; is >> i;){    // copying the format from "A tour of C++"
-    bits_.push_Back(i);
-  } 
+    bits_.push_back(i);
+  }
 }
 
 // Read a single bit (or trailing zero)
@@ -22,7 +23,12 @@ BitOutput::BitOutput(std::ostream& os){
   std::ostream& os_ = os;
 }
 
-~Bitoutput(){
+uint8_t vec8_to_bin(std::vector v){
+  uint8_t i = 128*v[0]+64*v[1]+32*v[2]+16*v[3]+8*v[4]+4*v[5]+2*v[6]+v[7];
+  return i;
+}
+
+BitOutput::~BitOutput(){
   int size_vector = poss_out_.size();
   while (poss_out_.size() != 8){
     poss_out_.push_back(0);
@@ -50,11 +56,6 @@ void BitOutput::output_bit(bool bit){
   }
   //if vector of things is smaller than 8, just append
   //if vector of things has size 8, turn it into an int, output, empty the vector
-}
-
-uint8_t vec8_to_bin(std::vector v){
-  uint8_t i = 128*v[0]+64*v[1]+32*v[2]+16*v[3]+8*v[4]+4*v[5]+2*v[6]+v[7];
-  return i;
 }
 
 BitOutput::~BitOutput(){
