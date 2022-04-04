@@ -9,7 +9,7 @@
 // Before reading any bits, ensure your input stream still has valid inputs.
 class BitInput {
  public:
-   using bits_vector_t = std::vector<int>
+   using bits_vector_t = std::vector<int>;
 
   // Construct with an input stream
   BitInput(std::istream& is);
