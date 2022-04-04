@@ -23,7 +23,7 @@ BitOutput::BitOutput(std::ostream& os){         //error: constructor for 'BitOut
   std::ostream& os_ = os;
 }
 
-uint8_t vec8_to_bin(std::vector v){
+uint8_t vec8_to_bin(std::vector& v){
   uint8_t i = 128*v[0]+64*v[1]+32*v[2]+16*v[3]+8*v[4]+4*v[5]+2*v[6]+v[7];
   return i;
 }
@@ -32,7 +32,7 @@ BitOutput::~BitOutput(){
   while (poss_out_.size() != 8){
     poss_out_.push_back(0);
   }
-    uint8_t num = vec8_to_bin(poss_out_);
+    uint8_t num = vec8_to_bin(&poss_out_);
     os_ << num;
 }
 
@@ -49,7 +49,7 @@ void BitOutput::output_bit(bool bit){
     poss_out_.push_back(0);
   }
   if (poss_out_.size() == 8){
-    uint8_t num = vec8_to_bin(poss_out_);
+    uint8_t num = vec8_to_bin(&poss_out_);
     poss_out_.erase(poss_out_.begin(),poss_out_.begin()+7);
     os_ << num;
   }
