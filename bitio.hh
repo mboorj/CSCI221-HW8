@@ -43,8 +43,8 @@ class BitOutput {
 
   BitOutput(const BitOutput&) = default;
   BitOutput(BitOutput&&) = default;
-  BitOutput& operator=(const BitOutput&) = default;
-  BitOutput& operator=(BitOutput&&) = default;
+  BitOutput& operator=(const BitOutput&) = default;     //error: explicitly defaulted move assignment operator is implicitly deleted
+  BitOutput& operator=(BitOutput&&) = default;          //error: explicitly defaulted move assignment operator is implicitly deleted
 
   // Output a single bit (buffered)
   void output_bit(bool bit);
