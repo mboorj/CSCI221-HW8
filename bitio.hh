@@ -4,20 +4,19 @@
 #include <iostream>
 #include <fstream>
 #include <vector>
+#include <sstream>
 
 // BitInput: Read a single bit at a time from an input stream.
 // Before reading any bits, ensure your input stream still has valid inputs.
 class BitInput {
  public:
-   using bits_vector_t = std::vector<int>;
-
   // Construct with an input stream
   BitInput(std::istream& is);
 
-  BitInput(const BitInput&) = default;
-  BitInput(BitInput&&) = default;
-  BitInput& operator=(const BitInput&) = default;
-  BitInput& operator=(BitInput&&) = default;
+  BitInput(const BitInput&) = delete; // changed all from default to delete because,,, reasons?
+  BitInput(BitInput&&) = delete; // can't auto generate copy and move because istream& can't be copied and moved
+  BitInput& operator=(const BitInput&) = delete;
+  BitInput& operator=(BitInput&&) = delete;
 
 
 
@@ -26,7 +25,9 @@ class BitInput {
   bool input_bit();
 
  private:
-  bits_vector_t bits_;
+  std::istream& is_;
+  char poss_in_;
+  int count_;
 
 };
 
@@ -34,23 +35,22 @@ class BitInput {
 // Make sure all bits are written out by the time the destructor is done.
 class BitOutput {
  public:
-   using bits_vector_t = std::vector<bool>;
   // Construct with an input stream
   BitOutput(std::ostream& os);
 
   // Flushes out any remaining output bits and trailing zeros, if any:
   ~BitOutput();
 
-  BitOutput(const BitOutput&) = default;
-  BitOutput(BitOutput&&) = default;
-  BitOutput& operator=(const BitOutput&) = default;     //error: explicitly defaulted move assignment operator is implicitly deleted
-  BitOutput& operator=(BitOutput&&) = default;          //error: explicitly defaulted move assignment operator is implicitly deleted
+  BitOutput(const BitOutput&) = delete;
+  BitOutput(BitOutput&&) = delete;
+  BitOutput& operator=(const BitOutput&) = delete;
+  BitOutput& operator=(BitOutput&&) = delete;
 
   // Output a single bit (buffered)
   void output_bit(bool bit);
 
  private:
-  bits_vector_t bits_;
   std::ostream& os_;
-  std::vector<int> poss_out_;
+  char poss_out_;
+  int count_;
 };

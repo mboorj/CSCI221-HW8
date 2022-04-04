@@ -1,58 +1,54 @@
 #include "bitio.hh"
-#include <vector>
 
 // Construct with an input stream
-BitInput::BitInput(std::istream& is){ // borrowing structure from Tour of C++
-  bits_vector_t bits_;
-  for (auto i; is >> i;){    // copying the format from "A tour of C++"
-    bits_.push_back(i);
-  }
-}
+BitInput::BitInput(std::istream& is)
+  :is_(is), poss_in_(0), count_(8) // magic initalizer format
+  {}
 
 // Read a single bit (or trailing zero)
 // Allowed to crash or throw an exception if called past end-of-file.
 bool BitInput::input_bit(){
-  int bit = bits_[0];
-  if (bit == 1) {return true;}
-  if (bit == 0) {return false;}
-  bits_.erase(bits_.begin());
+  if (is_.eof()){ // if next thing in istream is end
+    std::cerr << "Past end of file." << '\n';
+    throw ; // does an error
+  }
+
+  if (count_ == 8){ // have to do things in a byte (8 bits). if we've made it to 8, we can output a thing
+    count_ = 0;
+    poss_in_ = is_.get(); // output the 8 bits we've assembled
+  }
+  auto ret = poss_in_ & 1; // logical and with 1, gives us the last bit
+  poss_in_ = poss_in_ >> 1; // shift right 1, gives us a new last bit
+  count_++;
+
+  return ret;
 }
+
 
 // Construct with an output stream
-BitOutput::BitOutput(std::ostream& os){         //error: constructor for 'BitOutput' must explicitly initialize the reference member 'os_'
-  std::ostream& os_ = os;
-}
-
-uint8_t vec8_to_bin(std::vector& v){
-  uint8_t i = 128*v[0]+64*v[1]+32*v[2]+16*v[3]+8*v[4]+4*v[5]+2*v[6]+v[7];
-  return i;
-}
+BitOutput::BitOutput(std::ostream& os) // start with LEAST SIGNIFICANT, totally allowed as long as it does the same thing as the input
+  :os_(os), poss_out_(0), count_(8) // magic format
+  {}
 
 BitOutput::~BitOutput(){
-  while (poss_out_.size() != 8){
-    poss_out_.push_back(0);
+
+  //if count isn't finished, output whatever you've got
+  if (count_ != 0){
+    os_.put(poss_out_);
   }
-    uint8_t num = vec8_to_bin(&poss_out_);
-    os_ << num;
-}
+ }
 
 // Output a single bit (buffered)
 void BitOutput::output_bit(bool bit){
-  if (bit){
-    os_ << 1; // should it be os_ << instead?
-  } else {
-    os_ << 0;
+
+  poss_out_ = poss_out_ << 1; // shift one to the left, make room for new bit
+  poss_out_ = poss_out_ | bit; // logical or with new bit to add to end
+
+
+  if (count_ == 7){ // we'll have a full byte of things waiting to go out
+    count_ = 0;
+    os_.put(poss_out_); // output our byte
+    poss_out_ = 0; // empty output for next set of 8 bits
   }
-  if (bit) {
-    poss_out_.push_back(1);
-  } else {
-    poss_out_.push_back(0);
-  }
-  if (poss_out_.size() == 8){
-    uint8_t num = vec8_to_bin(&poss_out_);
-    poss_out_.erase(poss_out_.begin(),poss_out_.begin()+7);
-    os_ << num;
-  }
-  //if vector of things is smaller than 8, just append
-  //if vector of things has size 8, turn it into an int, output, empty the vector
-}
+  count_++;
+ }
