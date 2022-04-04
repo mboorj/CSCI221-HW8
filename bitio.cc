@@ -19,7 +19,7 @@ bool BitInput::input_bit(){
 }
 
 // Construct with an output stream
-BitOutput::BitOutput(std::ostream& os){
+BitOutput::BitOutput(std::ostream& os){         //error: constructor for 'BitOutput' must explicitly initialize the reference member 'os_'
   std::ostream& os_ = os;
 }
 
@@ -29,7 +29,6 @@ uint8_t vec8_to_bin(std::vector v){
 }
 
 BitOutput::~BitOutput(){
-  int size_vector = poss_out_.size();
   while (poss_out_.size() != 8){
     poss_out_.push_back(0);
   }
@@ -56,8 +55,4 @@ void BitOutput::output_bit(bool bit){
   }
   //if vector of things is smaller than 8, just append
   //if vector of things has size 8, turn it into an int, output, empty the vector
-}
-
-BitOutput::~BitOutput(){
-
 }
