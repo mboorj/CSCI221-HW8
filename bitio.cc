@@ -17,10 +17,10 @@ bool BitInput::input_bit(){
     count_ = 0;
     poss_in_ = is_.get(); // output the 8 bits we've assembled
   }
-  auto ret = poss_in_ & 1; // logical and with 1, gives us the last bit
-  poss_in_ = poss_in_ >> 1; // shift right 1, gives us a new last bit
-  count_++;
-
+  count_++; // increment counter, could do anywhere after if statement
+  
+  auto ret = poss_in_ >> 7; //  ret == 0000000? where ? is the most sig digit of poss_in_
+  poss_in_ = poss_in_ << 1; // move poss_in so we have a new most sig digit
   return ret;
 }
 
@@ -34,6 +34,8 @@ BitOutput::~BitOutput(){
 
   //if count isn't finished, output whatever you've got
   if (count_ != 0){
+    int zeros = 8 - count_;
+    poss_out_ = poss_out_ << (zeros);
     os_.put(poss_out_);
   }
  }
@@ -44,11 +46,11 @@ void BitOutput::output_bit(bool bit){
   poss_out_ = poss_out_ << 1; // shift one to the left, make room for new bit
   poss_out_ = poss_out_ | bit; // logical or with new bit to add to end
 
-
-  if (count_ == 7){ // we'll have a full byte of things waiting to go out
+  count_++;
+  if (count_ == 8){ // we'll have a full byte of things waiting to go out
     count_ = 0;
     os_.put(poss_out_); // output our byte
     poss_out_ = 0; // empty output for next set of 8 bits
   }
-  count_++;
+
  }
