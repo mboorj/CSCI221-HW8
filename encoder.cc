@@ -7,7 +7,7 @@
 main(int argc, char* argv[]){ // code copies from a tour of c++
     if (argc < 2) {
         std::cerr << "arguments expected\n";
-        return 1;
+        throw ;
     }
     std::filesystem::path file_path {argv[1]}; 
 
