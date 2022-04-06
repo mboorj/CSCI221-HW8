@@ -2,18 +2,22 @@
 #include <filesystem>
 #include <vector>
 #include <fstream>
-#include "bitio.cc"
 #include "bitio.hh"
+#include "huffman.hh"
 
 
-main(int argc, char* argv[]){ // code copies from a tour of c++
+int main(int argc, char* argv[]){ // code copies from a tour of c++
     if (argc < 2) {
         std::cerr << "arguments expected\n";
         throw ;
     }
     std::filesystem::path file_path {argv[1]}; 
 
-    std::ifstream is (path, std::ifstream::binary);
+    std::ifstream is (file_path, std::ifstream::binary);
+
+    std::vector<char> char_vector;
+
+    Huffman huff_tree = Huffman();
 
     if (is) {
         // get length of file:
@@ -21,16 +25,14 @@ main(int argc, char* argv[]){ // code copies from a tour of c++
         int length = is.tellg();
         is.seekg (0, is.beg);
 
-        std::vector<char> char_vector;
-
-        for (int i; i < length; i++) {
+        for (int i = 0 ; i < length; i++) {
             char_vector.push_back(is.get());
         }
 
         is.close();
+    }
 
-        for (int i : char_vector) {
-            std::cout << char_vector[i];
-        }
+    for(auto it=char_vector.begin(); it != char_vector.end(); it++) {
+        huff_tree.Huffman::encode(*it);
     }
 }
