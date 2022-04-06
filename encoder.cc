@@ -11,7 +11,7 @@ int main(int argc, char* argv[]){ // code copies from a tour of c++
         std::cerr << "arguments expected\n";
         throw ;
     }
-    std::filesystem::path file_path {argv[1]}; 
+    std::filesystem::path file_path {argv[1]};
 
     std::ifstream is (file_path, std::ifstream::binary);
 
