@@ -1,6 +1,6 @@
 #include <iostream>
 #include <filesystem>
-#include "bitio.cc"
+#include "bitio.hh"
 #include <fstream>
 
 
