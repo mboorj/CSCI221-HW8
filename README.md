@@ -2,6 +2,16 @@
 
 This project is a collaboration between Elijah Whitlam-Sandler and Mollie Boor. It was constructed using Eitan's versions of HTree and HForest throughout. 
 
+### Compression Tests
+We used ```diff -w``` to compare the files. We added the ```-w``` command, which ignores whitespace, because there seemed to be a mismatch in the inital whitespace of some of the files. Running ```cmp``` confirmed our suspicions because the differences it identified weren't visible when viewing the two versions of the files side-by-side.
+|file name |raw size|comp size|match?|
+|-----------|----------|-----------------|-------|
+|shakespeare-hamlet.txt|166,767 bytes|92,623 bytes|yes
+|bitio.cc|1,720 bytes|1,335 bytes|yes
+|suspension_bridge.txt|1,117 bytes|466 bytes|yes
+|decoder.cc|862 bytes|725 bytes|yes
+|huffman.cc|1,984 bytes|1,511 bytes|yes
+
 ### BitInput
 - **constructor:** initalizes data member ```is_``` as a reference to an istream, initalizes an empty byte of possible input, sets a counter variable to 8. The destructor is left as its default.
 - **input_bit:** throws an error if the input stream has reached end of file. Otherwise, checks if the counter has reached 8. If that is the case, the function has either just been called for the first time, or finished outputting a full byte of data. Either way, it should grab a new byte of data from the istream and reset the counter to 0. Regardless of how many bits into the current byte the function is, it will increment the counter, then use bitwise operations to return the correct bit.
