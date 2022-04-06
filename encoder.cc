@@ -20,8 +20,6 @@ int main(int argc, char* argv[]){ // code copies from a tour of c++
     std::ofstream os (file_path, std::ofstream::binary);
     BitOutput out = BitOutput(os);
 
-    std::vector<char> char_vector;
-
     Huffman huff_tree = Huffman();
 
     while (!is.eof()){ // if there's still stuff in the istream
