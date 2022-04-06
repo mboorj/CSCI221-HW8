@@ -1,6 +1,6 @@
 #include <iostream>
 #include <filesystem>
-#include "bitio.cc"
+#include "bitio.hh"
 
 
 main(int argc, char* argv[]){ // code copies from a tour of c++
