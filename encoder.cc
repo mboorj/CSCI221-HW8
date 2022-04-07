@@ -35,5 +35,15 @@ int main(int argc, char* argv[]){ // code copies from a tour of c++
         out.output_bit(bit); // output the encoding bit by bit into the new file
       }
     }
+    auto v = huff_tree.encode(Huffman::HEOF); // get and encode the next char
+      for (auto bit : v){
+        if (bit == true){
+          std::cout << 1;
+        } else {
+          std::cout << 0;
+        }
+        out.output_bit(bit); // output the encoding bit by bit into the new file
+      }
     is.close();
+    // os.close();
 }

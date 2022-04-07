@@ -23,9 +23,11 @@ int main(int argc, char* argv[]){ // code copies from a tour of c++
       auto b = in.input_bit();
       std::cout << b;
       auto sym = huff_tree.decode(b); // input_bit will automatically move to the next bit after grabbing
+      if (sym == Huffman::HEOF){break;}
       if (sym >= 0){ // if we've decoded a symbol, put it in the file
         os.put(sym);
       }
     }
     is.close();
+    os.close();
 }
