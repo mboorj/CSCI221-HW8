@@ -6,11 +6,12 @@ This project is a collaboration between Elijah Whitlam-Sandler and Mollie Boor. 
 We used ```diff -w``` to compare the files. We added the ```-w``` command, which ignores whitespace, because there seemed to be a mismatch in the inital whitespace of some of the files. Running ```cmp``` confirmed our suspicions because the differences it identified weren't visible when viewing the two versions of the files side-by-side.
 |file name |raw size|comp size|match?|
 |-----------|----------|-----------------|-------|
-|shakespeare-hamlet.txt|166,767 bytes|92,623 bytes|yes
-|bitio.cc|1,720 bytes|1,335 bytes|yes
-|suspension_bridge.txt|1,117 bytes|466 bytes|yes
-|decoder.cc|862 bytes|725 bytes|yes
-|huffman.cc|1,984 bytes|1,511 bytes|yes
+|shakespeare-hamlet.txt|166,767 bytes|92,625 bytes|yes
+|carroll-alice.txt|150,132 bytes|82,762 bytes|yes
+|suspension_bridge.txt|1,117 bytes|467 bytes|yes
+|bitio.cc|1,720 bytes|1,336 bytes|yes
+|decoder.cc|1,006 bytes|843 bytes|yes
+|huffman.cc|2,015 bytes|1,543 bytes|yes
 
 ### BitInput
 - **constructor:** initalizes data member ```is_``` as a reference to an istream, initalizes an empty byte of possible input, sets a counter variable to 8. The destructor is left as its default.

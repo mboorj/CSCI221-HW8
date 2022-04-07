@@ -26,24 +26,16 @@ int main(int argc, char* argv[]){ // code copies from a tour of c++
       auto b = is.get();
       auto v = huff_tree.encode(b); // get and encode the next char
       for (auto bit : v){
-
-        if (bit == true){
-          std::cout << 1;
-        } else {
-          std::cout << 0;
-        }
         out.output_bit(bit); // output the encoding bit by bit into the new file
       }
     }
-    auto v = huff_tree.encode(Huffman::HEOF); // get and encode the next char
+    auto v = huff_tree.encode(Huffman::HEOF); // encode an EOF symbol to the end of the file
       for (auto bit : v){
-        if (bit == true){
-          std::cout << 1;
-        } else {
-          std::cout << 0;
-        }
+        if (bit == true){   
         out.output_bit(bit); // output the encoding bit by bit into the new file
       }
     is.close();
     // os.close();
+  }
 }
+

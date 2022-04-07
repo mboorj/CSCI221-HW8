@@ -21,9 +21,8 @@ int main(int argc, char* argv[]){ // code copies from a tour of c++
 
     while (!is.eof()){ // if there's stuff in the file
       auto b = in.input_bit();
-      std::cout << b;
       auto sym = huff_tree.decode(b); // input_bit will automatically move to the next bit after grabbing
-      if (sym == Huffman::HEOF){break;}
+      if (sym == Huffman::HEOF){break;} // check if the symbol is EOF, read NO characters past the EOF symbol
       if (sym >= 0){ // if we've decoded a symbol, put it in the file
         os.put(sym);
       }
