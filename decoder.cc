@@ -20,7 +20,9 @@ int main(int argc, char* argv[]){ // code copies from a tour of c++
     Huffman huff_tree = Huffman();
 
     while (!is.eof()){ // if there's stuff in the file
-      auto sym = huff_tree.decode(in.input_bit()); // input_bit will automatically move to the next bit after grabbing
+      auto b = in.input_bit();
+      std::cout << b;
+      auto sym = huff_tree.decode(b); // input_bit will automatically move to the next bit after grabbing
       if (sym >= 0){ // if we've decoded a symbol, put it in the file
         os.put(sym);
       }
