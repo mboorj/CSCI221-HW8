@@ -26,3 +26,6 @@ We used ```diff -w``` to compare the files. We added the ```-w``` command, which
 - **decode:** takes a single bit of input and checks if the left or right child of the current node contains a symbol. If the function hasn't found a symbol the key of the node will be -1. In that case, it sets the root of the Huffman tree to the child indicated by the input bit and prepares to be called on the next bit. If it has found a symbol, it updates the frequency table and creates a new Huffman tree. Regardless of whether it found a symbol or not, the function will return the key of the current node. 
 - **create_huff:** initalizes a temporary forest and adds one tree per frequency table element. Then, it follows the algorithm described in the assignment instructions and class slideshow to create a single tree.
 - **update_freq:** adds 1 to the frequency table entry for the given index.
+
+### Testing
+To build our test files, we simply added more test cases to Eitan's test_bitio and test_huffman. We used the compression tests above to test our encoder.cc and decoder.cc files. We didn't add tests for htree and hforest since we used Eitan's versions.
